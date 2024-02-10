@@ -1,1 +1,1 @@
-# JS Backedn Practice from Chai Aur Backend YT Series
+# JS Backend Practice from Chai Aur Backend YT Series

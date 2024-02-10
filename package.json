@@ -1,12 +1,16 @@
 {
   "name": "jsbackendpractice",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A Practice Backend",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Vasu Jain",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }
