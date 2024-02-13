@@ -35,7 +35,7 @@ const userSchema = new Schema(
     },
     coverImage: {
       type: String,
-      required: true,
+      required: false,
     },
     watchHistory: {
       type: Schema.Types.ObjectId,
@@ -84,6 +84,6 @@ userSchema.methods.generateRefreshToken = function () {
     }
   );
 };
-userSchema.methods.generateRefreshToken = function () { };
+userSchema.methods.generateRefreshToken = function () {};
 
 export const User = model("User", userSchema);
