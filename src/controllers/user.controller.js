@@ -9,7 +9,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
     const user = await User.findById(userId);
     const accessToken = await user.generateAccessToken();
     const refreshToken = await user.generateRefreshToken();
-
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
@@ -17,7 +16,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
   } catch (error) {
     throw new ApiError(
       500,
-      "Something went wrong while generating Access and Refresh Tokens"
+      `Something went wrong while generating Access and Refresh Tokens - ${error}`
     );
   }
 };
@@ -150,4 +149,26 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse)
 });
 
-export { registerUser, loginUser, logoutUser };
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const currentUser = await User.findById(req.user?._id);
+  const isCorrect = currentUser.isPasswordCorrect(oldPassword)
+  if (!isCorrect) {
+    throw new ApiError(400, "Invaild Old Password")
+  }
+  currentUser.password = newPassword;
+  currentUser.save({ validateBeforeSave: false })
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "User Password Changed Successfully!"))
+})
+
+
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  changeCurrentPassword,
+  generateAccessAndRefreshTokens,
+};
